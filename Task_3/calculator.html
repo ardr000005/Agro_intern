@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+    }
+
+    .calculator {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      padding: 25px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+    }
+
+    .input-field:focus {
+      border-color: #6a11cb;
+      box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+    }
+
+    .select-field {
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+      appearance: none;
+      background: #f7f7f7;
+      cursor: pointer;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .button.calculate {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .button.calculate:hover {
+      background: #218838;
+    }
+
+    .button.clear {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    .button.clear:hover {
+      background: #c82333;
+    }
+
+    .result {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-top: 20px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="title">Calculator</div>
+    <div class="input-group">
+      <input type="number" id="num1" class="input-field" placeholder="Enter the first number">
+      <select id="operation" class="select-field">
+        <option value="add">Add (+)</option>
+        <option value="subtract">Subtract (-)</option>
+        <option value="multiply">Multiply (×)</option>
+        <option value="divide">Divide (÷)</option>
+        <option value="modulus">Modulus (%)</option>
+      </select>
+      <input type="number" id="num2" class="input-field" placeholder="Enter the second number">
+    </div>
+    <div class="buttons">
+      <button class="button calculate" onclick="calculate()">Calculate</button>
+      <button class="button clear" onclick="clearCalculator()">Clear</button>
+    </div>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    /**
+     * Performs the calculation based on user input.
+     */
+    function calculate() {
+      // Get the first number from the input field and convert it to a number
+      const num1 = parseFloat(document.getElementById("num1").value);
+
+      // Get the second number from the input field and convert it to a number
+      const num2 = parseFloat(document.getElementById("num2").value);
+
+      // Get the selected operation from the dropdown menu
+      const operation = document.getElementById("operation").value;
+
+      // Get the result display element to show the output
+      const resultDiv = document.getElementById("result");
+
+      try {
+        // Validate inputs to ensure they are valid numbers
+        if (isNaN(num1) || isNaN(num2)) {
+          throw new Error("Please enter valid numbers.");
+        }
+
+        let result;
+
+        // Perform the selected mathematical operation
+        switch (operation) {
+          case "add":
+            result = num1 + num2;
+            break;
+          case "subtract":
+            result = num1 - num2;
+            break;
+          case "multiply":
+            result = num1 * num2;
+            break;
+          case "divide":
+            if (num2 === 0) throw new Error("Division by zero is not allowed.");
+            result = num1 / num2;
+            break;
+          case "modulus":
+            if (num2 === 0) throw new Error("Division by zero is not allowed.");
+            result = num1 % num2;
+            break;
+          default:
+            throw new Error("Invalid operation.");
+        }
+
+        // Display the result in the result div
+        resultDiv.textContent = `Result: ${result}`;
+        resultDiv.classList.remove("error");
+      } catch (error) {
+        // Display an error message in case of an invalid operation
+        resultDiv.textContent = error.message;
+        resultDiv.classList.add("error");
+      }
+    }
+
+    /**
+     * Clears the calculator inputs and the result display.
+     */
+    function clearCalculator() {
+      // Reset the first and second input fields to empty
+      document.getElementById("num1").value = "";
+      document.getElementById("num2").value = "";
+
+      // Reset the operation dropdown to the default value
+      document.getElementById("operation").value = "add";
+
+      // Clear the result display
+      document.getElementById("result").textContent = "";
+    }
+  </script>
+</body>
+</html>

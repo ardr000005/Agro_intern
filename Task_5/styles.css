@@ -1,0 +1,400 @@
+\body, h1, h2, h3, p, ul, li, a, button, input {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* General body styles */
+body {
+    font-family: Arial, sans-serif; /* Set the font to Arial or sans-serif */
+    line-height: 1.6; /* Increase line height for better readability */
+    background-color: #f9f9f9; /* Light grey background */
+    color: #333; /* Dark grey text */
+}
+
+/* Welcome message styles */
+.welcome-message {
+    font-size: 18px; /* Set font size */
+    font-weight: 500; /* Make the font semi-bold */
+    color: white; /* Set the text color to white */
+    text-align: center; /* Center align the text */
+    flex: 1; /* Make the welcome message take up available space */
+    white-space: nowrap; /* Ensure the text stays on a single line */
+    overflow: hidden; /* Hide text outside the container */
+    opacity: 0; /* Initially hide the message */
+    animation: marquee 10s linear forwards; /* Add a marquee animation */
+}
+
+/* Marquee animation for the welcome message */
+@keyframes marquee {
+    0% {
+        transform: translateX(-100%); /* Start from the left */
+        opacity: 1; /* Make it visible at the start */
+    }
+    50% {
+        transform: translateX(0); /* Move to the center */
+        opacity: 1; /* Keep it visible while moving */
+    }
+    100% {
+        transform: translateX(100%); /* Move to the right and disappear */
+        opacity: 0; /* Fade out at the end */
+    }
+}
+
+/* Header styles */
+header {
+    background-color: #004d00; /* Dark green background */
+    color: #fff; /* White text */
+    padding: 10px 20px; /* Padding around the header */
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between the logo and cart */
+    align-items: center; /* Vertically align items in the header */
+    position: relative; /* Needed for absolute positioning of the cart */
+    width: 100%; /* Ensure header takes full width */
+    box-sizing: border-box; /* Include padding in total width */
+}
+
+/* Logo styling */
+.logo {
+    font-family: 'Dancing Script', cursive; /* Use cursive font for the logo */
+    font-size: 36px; /* Set large font size */
+    font-weight: bold; /* Make the logo text bold */
+    color: #dad8d8; /* Light grey color for the logo */
+    text-transform: uppercase; /* Convert logo text to uppercase */
+    letter-spacing: 2px; /* Add spacing between letters */
+    padding: 10px 20px; /* Padding around the logo */
+    border-radius: 5px; /* Rounded corners for the logo */
+}
+
+/* Navigation actions */
+.nav-actions {
+    display: flex; /* Flexbox layout */
+    justify-content: flex-start; /* Align the content to the left */
+    align-items: center; /* Vertically align the content */
+    width: 100%; /* Take up full width */
+}
+
+/* Button styles */
+button {
+    border: none; /* Remove default border */
+    background-color: transparent; /* No background */
+    padding: 10px; /* Padding inside the button */
+    cursor: pointer; /* Cursor turns to pointer on hover */
+}
+
+button img {
+    width: 30px; /* Set width for images inside buttons */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Cart button styles */
+.cart-wrapper {
+    position: absolute; /* Position cart button relative to the header */
+    right: 20px; /* Align cart to the right */
+    top: 50%; /* Center the cart vertically */
+    transform: translateY(-50%); /* Adjust for perfect vertical centering */
+}
+
+.cart-button {
+    border: none; /* Remove border from cart button */
+    background-color: transparent; /* Transparent background */
+    padding: 10px; /* Padding inside the button */
+    cursor: pointer; /* Cursor turns to pointer on hover */
+}
+
+.cart-icon {
+    width: 50px; /* Set width for the cart icon */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Cart item count */
+.cart-count {
+    position: absolute; /* Position the count over the cart icon */
+    top: 0; /* Align it to the top-right corner */
+    right: 0; /* Align it to the right */
+    background: red; /* Red background */
+    color: white; /* White text */
+    border-radius: 50%; /* Circle shape */
+    padding: 2px 6px; /* Padding for the count */
+    font-size: 12px; /* Smaller font size */
+    font-weight: bold; /* Make it bold */
+}
+
+/* Cart message that appears after adding items */
+.cart-message {
+    position: fixed; /* Fixed at the bottom */
+    bottom: 20px; /* 20px from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust to center */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding inside the message */
+    border-radius: 5px; /* Rounded corners */
+    display: none; /* Hidden by default */
+    font-size: 16px; /* Font size */
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+/* Hero section styling */
+.hero {
+    background-color: #e0f7fa; /* Light blue background */
+    text-align: center; /* Center align text */
+    padding: 20px 0; /* Padding for top and bottom */
+}
+
+.hero h1 {
+    margin-bottom: 10px; /* Margin below the heading */
+    font-size: 2rem; /* Larger font size */
+}
+
+.hero button {
+    padding: 10px 20px; /* Padding inside the button */
+    background-color: #008000; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1rem; /* Standard font size */
+}
+
+/* Product listing section */
+#product-listing {
+    display: flex; /* Flexbox for layout */
+    flex-wrap: wrap; /* Allow wrapping of products */
+    gap: 20px; /* Space between products */
+    justify-content: center; /* Center align products */
+}
+
+.products-grid {
+    display: grid; /* Grid layout for products */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid columns */
+    gap: 15px; /* Space between items */
+    width: 100%; /* Take up full width */
+}
+
+.product {
+    border: 1px solid #ddd; /* Light border around products */
+    padding: 10px; /* Padding inside the product container */
+    text-align: center; /* Center align text */
+    background-color: #f9f9f9; /* Light background */
+}
+
+.product button {
+    margin-top: 10px; /* Margin on top of the button */
+    padding: 8px 15px; /* Padding inside the button */
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.product button:hover {
+    background-color: #0056b3; /* Darker blue when hovered */
+}
+
+/* Product container with image effects */
+#product-container {
+    display: flex; /* Flex layout for center alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Stack items vertically */
+    height: 100vh; /* Full viewport height */
+    text-align: center; /* Center text */
+}
+
+#product-container img {
+    width: 300px; /* Fixed width for images */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 1s ease-in-out; /* Smooth rotation on hover */
+    cursor: pointer; /* Pointer cursor on hover */
+    transform-style: preserve-3d; /* Enable 3D transformations */
+    perspective: 1000px; /* 3D perspective */
+}
+
+#product-container img:hover {
+    transform: rotateY(360deg); /* Rotate image on hover */
+}
+
+#product-container h2,
+#product-container p {
+    margin-top: 20px; /* Margin on top of text */
+}
+
+/* Product actions section */
+.product-actions {
+    display: flex; /* Flexbox for actions */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 5px; /* Space between buttons */
+    margin-top: auto; /* Push actions to the bottom */
+}
+
+/* Hover effect on product images */
+.product img {
+    width: 150px; /* Smaller image size */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth transform on hover */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.product img:hover {
+    transform: rotate(15deg); /* Rotate product image slightly on hover */
+}
+
+/* Product buttons */
+.product button {
+    background-color: #004d00; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 5px 10px; /* Padding inside button */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Product rating styling */
+.product-rating {
+    font-size: 14px; /* Font size for ratings */
+    color: #FFD700; /* Gold color for filled stars */
+    margin: 5px 0; /* Margin around the rating */
+}
+
+.product-rating span {
+    color: #333; /* Text color for the numeric rating */
+    font-size: 12px; /* Smaller font size for the number */
+    margin-left: 5px; /* Space between the stars and the number */
+}
+
+/* Cart section header */
+.cart-header {
+    background-color: #004d00; /* Green background */
+    color: white; /* White text */
+    padding: 15px; /* Padding inside the header */
+    text-align: center; /* Center text */
+    font-size: 24px; /* Font size for the header */
+    font-weight: bold; /* Make the header bold */
+}
+
+#cart-section {
+    padding: 20px; /* Padding around the cart section */
+    margin-top: 20px; /* Space above the cart section */
+}
+
+/* Cart items listing */
+#cart-items {
+    display: flex; /* Flex layout for cart items */
+    flex-direction: column; /* Stack items vertically */
+    gap: 15px; /* Space between items */
+}
+
+.cart-item {
+    display: flex; /* Flex layout for cart items */
+    justify-content: space-between; /* Space between item details and remove button */
+    align-items: center; /* Align items vertically */
+    background-color: #f9f9f9; /* Light background */
+    padding: 15px; /* Padding inside each cart item */
+    border: 1px solid #ddd; /* Light border around each cart item */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow around cart item */
+}
+
+.cart-item img {
+    width: 80px; /* Fixed width for images */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 15px; /* Space between image and text */
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+.cart-item p {
+    flex: 1; /* Allow the text to take available space */
+    margin: 0; /* Remove default margin */
+    font-size: 16px; /* Font size for item description */
+}
+
+.cart-item button {
+    padding: 8px 15px; /* Padding inside the button */
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.cart-item button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Total cost display in cart */
+#cart-total {
+    font-size: 24px; /* Large font size for total */
+    font-weight: bold; /* Bold total cost text */
+    margin-top: 15px; /* Space above the total */
+}
+
+/* Back button styling */
+a {
+    display: inline-block; /* Display as a block for clickable area */
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding inside the button */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+}
+
+a:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Checkout button alignment */
+.checkout-button-wrapper {
+    text-align: right; /* Align button to the right */
+    margin-top: 10px; /* Space above the button */
+}
+
+/* Checkout button styling */
+#checkout-button {
+    display: inline-block; /* Display as a block for clickable area */
+    margin-top: 25px; /* Space above the button */
+    padding: 15px 30px; /* Padding inside the button */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+
+#checkout-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Footer Styles */
+/* This section styles the footer at the bottom of the page */
+footer {
+    background-color: #333; /* Dark background color for the footer */
+    color: white; /* White text color for the footer */
+    padding: 20px; /* Add padding around the content inside the footer */
+    text-align: center; /* Center-align the text inside the footer */
+}
+
+/* Footer content wrapper styles */
+.footer-content {
+    max-width: 1200px; /* Set a maximum width to keep the footer content from being too wide */
+    margin: 0 auto; /* Center the footer content horizontally */
+}
+
+/* Styles for the footer links */
+.footer-links {
+    margin-top: 10px; /* Add some space between the footer text and the links */
+}
+
+/* Styling for the individual links inside the footer */
+.footer-links a {
+    color: white; /* Make the link text white */
+    text-decoration: none; /* Remove the default underline from links */
+    margin: 0 10px; /* Add some space between the links */
+}
+
+/* Hover effect for the links */
+.footer-links a:hover {
+    text-decoration: underline; /* Underline the links when they are hovered over */
+}

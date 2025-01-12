@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopcart</title>
+    <!-- Link to Google Font for custom font style -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">    
+    <!-- Link to the external CSS file to style the page -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section: Contains the navigation bar and the welcome message -->
+    <header>
+        <nav class="navbar">
+          <!-- Logo displayed on the left side of the navigation bar -->
+          <div class="logo">Shopcart</div>
+          <div class="nav-actions">
+            <div class="cart-wrapper">
+              <!-- Cart button that links to the shopping cart page -->
+              <button onclick="window.location.href='cart.html';" class="cart-button">
+                <!-- Cart icon to visually represent the shopping cart -->
+                <img src="cart.png" alt="Cart Icon" class="cart-icon">
+                <!-- Cart item count displayed next to the cart icon -->
+                <span id="cart-count" class="cart-count">0</span>
+              </button>
+            </div>
+          </div>
+          <!-- Welcome message that appears in the center of the navigation bar -->
+          <div id="welcome-message" class="welcome-message">Hi, Welcome to Shopcart</div>
+        </nav>
+      </header>
+      
+    <!-- Product Listing Section: Area where products will be dynamically loaded -->
+    <section id="product-listing">
+        <div id="products-container" class="products-grid">
+            <!-- Products will be inserted dynamically into this container -->
+        </div>
+    </section>
+
+    <!-- Cart message section: Displays a message when a product is added to the cart -->
+    <div id="cart-message" class="cart-message" style="display: none;">Product added to cart!</div>
+
+    <!-- Footer Section: The footer is displayed at the bottom of the page -->
+    <footer>
+        <div class="footer-content">
+            <!-- Copyright information displayed in the footer -->
+            <p>&copy; 2025 Shopcart. All Rights Reserved.</p>
+        
+            <!-- Footer links for important pages such as Privacy Policy, Terms, and Contact -->
+            <div class="footer-links">
+                <!-- Link to the Privacy Policy page (currently pointing to # for demonstration purposes) -->
+                <a href="#">Privacy Policy</a> | 
+            
+                <!-- Link to the Terms of Service page (currently pointing to # for demonstration purposes) -->
+                <a href="#">Terms of Service</a> | 
+            
+                <!-- Link to the Contact Us page (currently pointing to # for demonstration purposes) -->
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Link to external JavaScript file where functionalities are defined -->
+    <script src="script.js"></script>
+</body>
+</html>

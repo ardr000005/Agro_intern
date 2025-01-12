@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+        text-align: center;
+        padding: 20px;
+        background: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        width: 90%;
+        max-width: 700px; 
+        }
+        .hidden {
+            display: none;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        #timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+        }
+        .choice {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .choice:hover {
+            background: #e0e0e0;
+        }
+        .correct {
+            background: #4caf50;
+            color: white;
+        }
+        .wrong {
+            background: #f44336;
+            color: white;
+        }
+        @keyframes animateText {
+            0%, 100% { transform: scale(1); color: #000; }
+            50% { transform: scale(1.5); color: #ff5722; }
+        }
+        #webQuizText span {
+            display: inline-block;
+            animation: animateText 2s infinite;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff9a9e;
+            border-radius: 50%;
+            animation: fall 3s ease-in-out infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="welcome">
+        <h1>Welcome to the Quiz</h1>
+        <p id="webQuizText">
+            <span>W</span><span>E</span><span>B</span> <span>Q</span><span>U</span><span>I</span><span>Z</span>
+        </p>
+        <button class="btn" id="startQuiz">Start Quiz</button>
+    </div>
+
+    <div class="container hidden" id="nameInput">
+        <h1>Welcome to Web Quiz</h1>
+        <p>Enter your name to begin:</p>
+        <input type="text" id="userName" placeholder="Enter your name" />
+        <button class="btn" id="submitName">Submit</button>
+    </div>
+
+    <div class="container hidden" id="quizContainer">
+        <h1 id="question"></h1>
+        <div id="choices"></div>
+        <p>Time Left: <span id="timer">12</span> seconds</p>
+    </div>
+
+    <div class="container hidden" id="result">
+        <h1>Quiz Complete!</h1>
+        <p id="finalMessage"></p>
+        <p>Your score: <span id="score"></span></p>
+        <button class="btn" id="restartQuiz">Restart Quiz</button>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "JavaScript ignores extra spaces.", choices: ["True", "False", "Sometimes", "Never"], answer: "True" },
+            { question: "Which HTML element is used for the largest heading?", choices: ["<h1>", "<h6>", "<p>", "<title>"], answer: "<h1>" },
+            { question: "CSS stands for?", choices: ["Color Style Sheets", "Cascading Style Sheets", "Creative Style Sheets", "None of these"], answer: "Cascading Style Sheets" },
+            { question: "What does DOM stand for?", choices: ["Document Object Model", "Data Object Model", "Display Object Management", "None of these"], answer: "Document Object Model" },
+            { question: "Which property is used to change the background color in CSS?", choices: ["color", "background", "background-color", "bgColor"], answer: "background-color" },
+            { question: "Which is not a JavaScript framework?", choices: ["React", "Angular", "Vue", "Python"], answer: "Python" },
+            { question: "Which tag is used to create a hyperlink in HTML?", choices: ["<a>", "<link>", "<href>", "<hyperlink>"], answer: "<a>" },
+            { question: "What does API stand for?", choices: ["Application Programming Interface", "Applied Protocol Interface", "Application Process Integration", "None of these"], answer: "Application Programming Interface" },
+            { question: "Which protocol is used to fetch resources over the web?", choices: ["HTTP", "FTP", "SMTP", "SSH"], answer: "HTTP" },
+            { question: "Which HTML attribute specifies an alternate text for an image?", choices: ["alt", "src", "title", "description"], answer: "alt" }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let timer;
+
+        const welcomeScreen = document.getElementById("welcome");
+        const nameInputScreen = document.getElementById("nameInput");
+        const quizContainer = document.getElementById("quizContainer");
+        const resultScreen = document.getElementById("result");
+
+        const userNameInput = document.getElementById("userName");
+        const questionEl = document.getElementById("question");
+        const choicesEl = document.getElementById("choices");
+        const timerEl = document.getElementById("timer");
+        const scoreEl = document.getElementById("score");
+        const finalMessageEl = document.getElementById("finalMessage");
+
+        document.getElementById("startQuiz").addEventListener("click", () => {
+            welcomeScreen.classList.add("hidden");
+            nameInputScreen.classList.remove("hidden");
+        });
+
+        document.getElementById("submitName").addEventListener("click", () => {
+            const userName = userNameInput.value.trim();
+            if (userName) {
+                localStorage.setItem("userName", userName);
+                nameInputScreen.classList.add("hidden");
+                quizContainer.classList.remove("hidden");
+                loadQuestion();
+            }
+        });
+
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                const current = questions[currentQuestion];
+                questionEl.textContent = `Question ${currentQuestion + 1}: ${current.question}`;
+                choicesEl.innerHTML = "";
+
+                current.choices.forEach(choice => {
+                    const button = document.createElement("button");
+                    button.textContent = choice;
+                    button.className = "choice";
+                    button.addEventListener("click", () => selectAnswer(button, current.answer));
+                    choicesEl.appendChild(button);
+                });
+
+                timerEl.textContent = 12;
+                startTimer();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 12;
+            timer = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    currentQuestion++;
+                    loadQuestion();
+                }
+            }, 1000);
+        }
+
+        function selectAnswer(button, correctAnswer) {
+            clearInterval(timer);
+            const isCorrect = button.textContent === correctAnswer;
+            button.classList.add(isCorrect ? "correct" : "wrong");
+            if (isCorrect) score++;
+            setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+            }, 1000);
+        }
+
+        function endQuiz() {
+            quizContainer.classList.add("hidden");
+            resultScreen.classList.remove("hidden");
+            const userName = localStorage.getItem("userName");
+            scoreEl.textContent = `${score} / ${questions.length}`;
+
+            if (score === 0) {
+                finalMessageEl.textContent = `Better luck next time, ${userName}. Try again!`;
+            } else {
+                finalMessageEl.textContent = `Congratulations, ${userName}!`;
+                launchConfetti();
+            }
+        }
+
+        function launchConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        document.getElementById("restartQuiz").addEventListener("click", () => {
+            score = 0;
+            currentQuestion = 0;
+            resultScreen.classList.add("hidden");
+            nameInputScreen.classList.remove("hidden");
+        });
+    </script>
+</body>
+</html>
