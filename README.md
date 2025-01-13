@@ -1,6 +1,6 @@
 # Agro Intern Tasks  
 
-Welcome to my repository! Here, you'll find the tasks I completed during the Agro internship program.  
+Welcome to my repository! Here, you'll find the tasks I completed as a part of the Agrowtein internship program.  
 Each task showcases different aspects of web development, including **HTML**, **CSS**, and **JavaScript**.  
 
 Feel free to explore the live demos linked below!  
